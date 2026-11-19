@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Formulario de inscripción accesible para el Taller Universitario de Accesibilidad e Inclusión Digital. Compatible con lectores de pantalla y navegación completa por teclado.">
+  <title>Formulario de inscripción – Taller Universitario de Accesibilidad e Inclusión Digital</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="contenedor">
+      <p class="institucion">Dirección de Innovación Educativa y Bienestar Universitario</p>
+      <h1 id="titulo-pagina">Inscripción al Taller Universitario de Accesibilidad e Inclusión Digital</h1>
+      <p class="subtitulo">
+        Aprenda a diseñar documentos, formularios y entornos digitales comprensibles y utilizables por todas las personas.
+      </p>
+
+      <dl class="meta-taller" aria-label="Información general del taller">
+        <div class="meta-item">
+          <dt>Modalidad</dt>
+          <dd>Presencial y virtual en vivo (híbrida)</dd>
+        </div>
+        <div class="meta-item">
+          <dt>Duración</dt>
+          <dd>4 horas (con certificado de participación)</dd>
+        </div>
+        <div class="meta-item">
+          <dt>Dirigido a</dt>
+          <dd>Estudiantes, docentes y personal universitario</dd>
+        </div>
+        <div class="meta-item">
+          <dt>Costo</dt>
+          <dd>Gratuito (cupo limitado)</dd>
+        </div>
+      </dl>
+    </div>
+  </header>
+
+  <main id="contenido-principal" class="contenedor" tabindex="-1">
+    <!-- Región viva cortés para anuncios de estado accesibles -->
+    <div id="anuncio-estado" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <section id="seccion-formulario" aria-labelledby="titulo-instrucciones">
+      <div class="panel-instrucciones">
+        <h2 id="titulo-instrucciones">Instrucciones antes de comenzar</h2>
+        <ul class="lista-instrucciones">
+          <li><strong>Tiempo estimado:</strong> 3 minutos.</li>
+          <li>
+            <strong>Campos obligatorios:</strong> todos los campos marcados con un asterisco
+            (<span class="texto-obligatorio" aria-hidden="true">*</span>) y la indicación
+            <strong>(obligatorio)</strong> son necesarios para completar su inscripción. Los campos marcados como
+            <strong>(opcional)</strong> pueden dejarse en blanco.
+          </li>
+          <li>
+            <strong>Privacidad y demostración:</strong> sus datos se utilizan únicamente para gestionar el taller y
+            coordinar apoyos de accesibilidad. En esta demostración web los datos se procesan localmente en su navegador.
+          </li>
+        </ul>
+
+        <details class="guia-teclado">
+          <summary>Cómo completar este formulario usando solo el teclado</summary>
+          <ul class="lista-teclado">
+            <li><kbd>Tab</kbd>: avanzar al siguiente campo, enlace o botón.</li>
+            <li><kbd>Shift</kbd> + <kbd>Tab</kbd>: retroceder al elemento anterior.</li>
+            <li><kbd>↑</kbd> y <kbd>↓</kbd> (flechas): elegir una opción en botones de opción o listas desplegables.</li>
+            <li><kbd>Espacio</kbd>: marcar o desmarcar casillas de verificación y activar botones.</li>
+            <li><kbd>Enter</kbd>: abrir listas desplegables, activar enlaces o enviar el formulario.</li>
+          </ul>
+        </details>
+      </div>
+
+      <!-- Resumen de errores accesible: aparece y recibe foco al fallar la validación -->
+      <div
+        id="resumen-errores"
+        class="resumen-errores"
+        role="alert"
+        aria-labelledby="titulo-resumen-errores"
+        tabindex="-1"
+        hidden
+      >
+        <div class="resumen-errores-encabezado">
+          <svg class="icono-alerta" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M12 2L1 21h22L12 2zm0 4.5L19.53 19H4.47L12 6.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
+          </svg>
+          <h2 id="titulo-resumen-errores">Revise los campos con errores antes de enviar</h2>
+        </div>
+        <p id="descripcion-resumen-errores">
+          Seleccione cualquier elemento de la lista para ir directamente al campo que requiere corrección:
+        </p>
+        <ul id="lista-resumen-errores" class="lista-errores"></ul>
+      </div>
+
+      <form
+        id="formulario-inscripcion"
+        class="formulario"
+        method="post"
+        action="#confirmacion"
+        aria-describedby="titulo-instrucciones"
+      >
+        <!-- SECCIÓN 1: DATOS PERSONALES -->
+        <fieldset class="seccion-campo">
+          <legend class="seccion-leyenda">1. Datos personales</legend>
+
+          <div class="campo" data-campo="nombre">
+            <label class="etiqueta" for="nombre">
+              Nombre completo
+              <span class="marca-obligatorio"><span aria-hidden="true">*</span> (obligatorio)</span>
+            </label>
+            <p class="ayuda" id="nombre-ayuda">
+              Escriba su nombre y apellidos tal como desea que aparezcan en su certificado de participación. Ejemplo: María Elena Gómez Morales.
+            </p>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              autocomplete="name"
+              required
+              aria-describedby="nombre-ayuda nombre-error"
+            >
+            <p class="mensaje-error" id="nombre-error" hidden></p>
+          </div>
+
+          <div class="campo" data-campo="correo">
+            <label class="etiqueta" for="correo">
+              Correo electrónico institucional o personal
+              <span class="marca-obligatorio"><span aria-hidden="true">*</span> (obligatorio)</span>
+            </label>
+            <p class="ayuda" id="correo-ayuda">
+              Enviaremos la confirmación, el enlace de acceso o ubicación y su certificado a esta dirección. Ejemplo: maria.gomez@universidad.edu.
+            </p>
+            <input
+              type="email"
+              id="correo"
+              name="correo"
+              autocomplete="email"
+              inputmode="email"
+              required
+              aria-describedby="correo-ayuda correo-error"
+            >
+            <p class="mensaje-error" id="correo-error" hidden></p>
+          </div>
+
+          <div class="campo" data-campo="telefono">
+            <label class="etiqueta" for="telefono">
+              Teléfono de contacto
+              <span class="marca-opcional">(opcional)</span>
+            </label>
+            <p class="ayuda" id="telefono-ayuda">
+              Solo se utilizará para avisos urgentes sobre cambios de horario o aula. Si lo incluye, ingrese entre 8 y 15 dígitos (puede usar prefijo +, espacios o guiones).
+            </p>
+            <input
+              type="tel"
+              id="telefono"
+              name="telefono"
+              autocomplete="tel"
+              inputmode="tel"
+              aria-describedby="telefono-ayuda telefono-error"
+            >
+            <p class="mensaje-error" id="telefono-error" hidden></p>
+          </div>
+        </fieldset>
+
+        <!-- SECCIÓN 2: PERFIL ACADÉMICO Y PARTICIPACIÓN -->
+        <fieldset class="seccion-campo">
+          <legend class="seccion-leyenda">2. Perfil académico y participación</legend>
+
+          <div class="campo" data-campo="perfil">
+            <fieldset class="grupo-opciones" id="grupo-perfil" aria-describedby="perfil-ayuda">
+              <legend class="etiqueta-grupo">
+                Perfil universitario
+                <span class="marca-obligatorio"><span aria-hidden="true">*</span> (obligatorio)</span>
+              </legend>
+              <p class="ayuda" id="perfil-ayuda">
+                Seleccione la opción que mejor describa su vínculo actual con la universidad.
+              </p>
+
+              <div class="lista-opciones">
+                <div class="opcion">
+                  <input type="radio" id="perfil-grado" name="perfil" value="Estudiante de grado o licenciatura" required>
+                  <label for="perfil-grado">Estudiante de grado o licenciatura</label>
+                </div>
+                <div class="opcion">
+                  <input type="radio" id="perfil-posgrado" name="perfil" value="Estudiante de posgrado">
+                  <label for="perfil-posgrado">Estudiante de posgrado</label>
+                </div>
+                <div class="opcion">
+                  <input type="radio" id="perfil-docente" name="perfil" value="Docente o investigador(a)">
+                  <label for="perfil-docente">Docente o investigador(a)</label>
+                </div>
+                <div class="opcion">
+                  <input type="radio" id="perfil-admin" name="perfil" value="Personal administrativo o de apoyo">
+                  <label for="perfil-admin">Personal administrativo o de apoyo</label>
+                </div>
+                <div class="opcion">
+                  <input type="radio" id="perfil-externo" name="perfil" value="Persona invitada externa">
+                  <label for="perfil-externo">Persona invitada externa</label>
+                </div>
+              </div>
+            </fieldset>
+            <p class="mensaje-error" id="perfil-error" hidden></p>
+          </div>
+
+          <div class="campo" data-campo="facultad">
+            <label class="etiqueta" for="facultad">
+              Facultad, escuela o unidad académica
+              <span class="marca-obligatorio"><span aria-hidden="true">*</span> (obligatorio)</span>
+            </label>
+            <p class="ayuda" id="facultad-ayuda">
+              Seleccione en la lista desplegable la facultad o unidad a la que pertenece.
+            </p>
+            <select
+              id="facultad"
+              name="facultad"
+              required
+              aria-describedby="facultad-ayuda facultad-error"
+            >
+              <option value="">-- Seleccione una opción --</option>
+              <option value="Ingeniería y Tecnología">Ingeniería y Tecnología</option>
+              <option value="Ciencias de la Educación">Ciencias de la Educación</option>
+              <option value="Ciencias Sociales y Humanidades">Ciencias Sociales y Humanidades</option>
+              <option value="Ciencias de la Salud">Ciencias de la Salud</option>
+              <option value="Ciencias Económicas y Empresariales">Ciencias Económicas y Empresariales</option>
+              <option value="Artes, Diseño y Comunicación">Artes, Diseño y Comunicación</option>
+              <option value="Administración Central y Bienestar Universitario">Administración Central y Bienestar Universitario</option>
+              <option value="Otra unidad o institución externa">Otra unidad o institución externa</option>
+            </select>
+            <p class="mensaje-error" id="facultad-error" hidden></p>
+          </div>
+
+          <div class="campo" data-campo="modalidad">
+            <fieldset class="grupo-opciones" id="grupo-modalidad" aria-describedby="modalidad-ayuda">
+              <legend class="etiqueta-grupo">
+                Modalidad de asistencia preferida
+                <span class="marca-obligatorio"><span aria-hidden="true">*</span> (obligatorio)</span>
+              </legend>
+              <p class="ayuda" id="modalidad-ayuda">
+                Ambas modalidades incluyen las mismas prácticas, materiales accesibles y certificado de participación.
+              </p>
+
+              <div class="lista-opciones">
+                <div class="opcion">
+                  <input
+                    type="radio"
+                    id="modalidad-presencial"
+                    name="modalidad"
+                    value="Presencial (Auditorio Central, acceso sin escalones y ascensor)"
+                    required
+                  >
+                  <label for="modalidad-presencial">
+                    Presencial (Auditorio Central, acceso sin escalones y ascensor)
+                  </label>
+                </div>
+                <div class="opcion">
+                  <input
+                    type="radio"
+                    id="modalidad-virtual"
+                    name="modalidad"
+                    value="Virtual en vivo (plataforma con subtítulos en tiempo real y transcripción)"
+                  >
+                  <label for="modalidad-virtual">
+                    Virtual en vivo (plataforma con subtítulos en tiempo real y transcripción)
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+            <p class="mensaje-error" id="modalidad-error" hidden></p>
+          </div>
+
+          <div class="campo" data-campo="sesion">
+            <label class="etiqueta" for="sesion">
+              Sesión y horario preferido
+              <span class="marca-obligatorio"><span aria-hidden="true">*</span> (obligatorio)</span>
+            </label>
+            <p class="ayuda" id="sesion-ayuda">
+              Elija la fecha y horario en los que desea asistir al taller.
+            </p>
+            <select
+              id="sesion"
+              name="sesion"
+              required
+              aria-describedby="sesion-ayuda sesion-error"
+            >
+              <option value="">-- Seleccione una sesión --</option>
+              <option value="Sesión 1: Martes 24 de noviembre, de 9:00 a 13:00">Sesión 1: Martes 24 de noviembre, de 9:00 a 13:00</option>
+              <option value="Sesión 2: Jueves 26 de noviembre, de 14:00 a 18:00">Sesión 2: Jueves 26 de noviembre, de 14:00 a 18:00</option>
+              <option value="Sesión 3: Sábado 28 de noviembre, de 9:00 a 13:00">Sesión 3: Sábado 28 de noviembre, de 9:00 a 13:00</option>
+            </select>
+            <p class="mensaje-error" id="sesion-error" hidden></p>
+          </div>
+        </fieldset>
+
+        <!-- SECCIÓN 3: APOYOS DE ACCESIBILIDAD Y AJUSTES RAZONABLES -->
+        <fieldset class="seccion-campo">
+          <legend class="seccion-leyenda">3. Apoyos de accesibilidad y ajustes razonables</legend>
+
+          <div class="campo" data-campo="apoyos">
+            <fieldset class="grupo-opciones" aria-describedby="apoyos-ayuda">
+              <legend class="etiqueta-grupo">
+                ¿Requiere algún apoyo o ajuste de accesibilidad para participar?
+                <span class="marca-opcional">(opcional)</span>
+              </legend>
+              <p class="ayuda" id="apoyos-ayuda">
+                Marque todas las opciones que necesite para garantizar su plena participación en el taller.
+              </p>
+
+              <div class="lista-opciones">
+                <div class="opcion">
+                  <input type="checkbox" id="apoyo-senas" name="apoyos" value="Interpretación en Lengua de Señas">
+                  <label for="apoyo-senas">Interpretación en Lengua de Señas</label>
+                </div>
+                <div class="opcion">
+                  <input type="checkbox" id="apoyo-subtitulos" name="apoyos" value="Subtitulado en tiempo real">
+                  <label for="apoyo-subtitulos">Subtitulado en tiempo real (presencial o virtual)</label>
+                </div>
+                <div class="opcion">
+                  <input type="checkbox" id="apoyo-materiales" name="apoyos" value="Materiales previos en formato accesible (HTML, Word estructurado o texto plano)">
+                  <label for="apoyo-materiales">Materiales previos en formato accesible (HTML, Word estructurado o texto plano)</label>
+                </div>
+                <div class="opcion">
+                  <input type="checkbox" id="apoyo-espacio" name="apoyos" value="Asiento reservado en primera fila o espacio para silla de ruedas">
+                  <label for="apoyo-espacio">Asiento reservado en primera fila o espacio para silla de ruedas</label>
+                </div>
+                <div class="opcion">
+                  <input type="checkbox" id="apoyo-descansos" name="apoyos" value="Descansos breves adicionales o zona tranquila">
+                  <label for="apoyo-descansos">Descansos breves adicionales o zona tranquila</label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="campo" data-campo="comentarios">
+            <label class="etiqueta" for="comentarios">
+              Otros comentarios, consultas o necesidades específicas de apoyo
+              <span class="marca-opcional">(opcional)</span>
+            </label>
+            <p class="ayuda" id="comentarios-ayuda">
+              Indique cualquier otro ajuste razonable, consulta o tema que le gustaría abordar durante el taller (máximo 500 caracteres).
+            </p>
+            <textarea
+              id="comentarios"
+              name="comentarios"
+              rows="4"
+              maxlength="500"
+              aria-describedby="comentarios-ayuda comentarios-contador comentarios-error"
+            ></textarea>
+            <p class="contador-caracteres" id="comentarios-contador">0 de 500 caracteres utilizados</p>
+            <p class="mensaje-error" id="comentarios-error" hidden></p>
+          </div>
+        </fieldset>
+
+        <!-- SECCIÓN 4: CONSENTIMIENTO Y ENVÍO -->
+        <fieldset class="seccion-campo">
+          <legend class="seccion-leyenda">4. Consentimiento y envío</legend>
+
+          <div class="campo" data-campo="consentimiento">
+            <div class="opcion opcion-consentimiento">
+              <input
+                type="checkbox"
+                id="consentimiento"
+                name="consentimiento"
+                required
+                aria-describedby="consentimiento-error"
+              >
+              <label for="consentimiento">
+                Confirmo que los datos proporcionados son correctos y autorizo su uso exclusivo para gestionar mi inscripción, coordinar apoyos de accesibilidad y emitir el certificado del taller.
+                <span class="marca-obligatorio"><span aria-hidden="true">*</span> (obligatorio)</span>
+              </label>
+            </div>
+            <p class="mensaje-error" id="consentimiento-error" hidden></p>
+          </div>
+
+          <div class="acciones-formulario">
+            <button type="submit" class="btn btn-primario">Enviar inscripción</button>
+            <button type="button" id="btn-limpiar" class="btn btn-secundario">Limpiar formulario</button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+
+    <!-- PANEL DE CONFIRMACIÓN DE ENVÍO -->
+    <section
+      id="confirmacion"
+      class="panel-confirmacion"
+      aria-labelledby="titulo-confirmacion"
+      tabindex="-1"
+      hidden
+    >
+      <div class="confirmacion-encabezado">
+        <svg class="icono-exito" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="32" height="32">
+          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 14.3l-3.8-3.8 1.41-1.41 2.39 2.38 5.39-5.39 1.41 1.42-6.8 6.8z"/>
+        </svg>
+        <div>
+          <p class="etiqueta-confirmacion">Registro completado</p>
+          <h2 id="titulo-confirmacion">¡Su inscripción ha sido confirmada!</h2>
+        </div>
+      </div>
+
+      <p class="texto-confirmacion">
+        Gracias por inscribirse al <strong>Taller Universitario de Accesibilidad e Inclusión Digital</strong>.
+        Guarde su número de comprobante: <strong id="folio-confirmacion" class="folio"></strong>.
+      </p>
+
+      <div class="proximos-pasos">
+        <h3>Próximos pasos</h3>
+        <ul>
+          <li>Enviaremos los detalles de acceso y materiales previos al correo electrónico registrado.</li>
+          <li>Si solicitó apoyos de accesibilidad, el equipo organizador coordinará con usted antes del inicio de la sesión.</li>
+          <li>Si necesita modificar algún dato, escriba a <a href="mailto:accesibilidad@universidad.edu">accesibilidad@universidad.edu</a> indicando su número de comprobante.</li>
+        </ul>
+      </div>
+
+      <h3>Resumen de los datos enviados</h3>
+      <dl id="resumen-datos" class="resumen-datos"></dl>
+
+      <div class="acciones-confirmacion no-imprimir">
+        <button type="button" id="btn-imprimir" class="btn btn-primario">Imprimir o guardar comprobante</button>
+        <button type="button" id="btn-nueva-inscripcion" class="btn btn-secundario">Realizar otra inscripción</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="contenedor">
+      <h2 class="footer-titulo">Compromiso con la accesibilidad digital</h2>
+      <p>
+        Este formulario fue diseñado siguiendo las Pautas de Accesibilidad para el Contenido Web (WCAG 2.2, nivel AA):
+        estructura semántica HTML5, etiquetas asociadas explícitamente a cada campo, contraste verificado, mensajes de error
+        comprensibles, confirmación accesible y compatibilidad total con teclado y lectores de pantalla (NVDA, JAWS y VoiceOver).
+      </p>
+      <p class="footer-nota">
+        Caso 4: Formularios y sitios web — De la interacción a la inclusión.
+        ¿Encontró alguna barrera de accesibilidad? Escríbanos a
+        <a href="mailto:accesibilidad@universidad.edu">accesibilidad@universidad.edu</a>.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
