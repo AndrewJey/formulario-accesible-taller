@@ -1,14 +1,31 @@
 /* ==========================================================================
-   Estilos accesibles (WCAG 2.2 Nivel AA / AAA en contraste de texto)
+   Estilos accesibles con tema claro y oscuro (WCAG 2.2 Nivel AA / AAA)
    Caso 4: Formularios y sitios web — De la interacción a la inclusión
    ========================================================================== */
 
-:root {
-  --color-primario: #0b3954;
-  --color-primario-hover: #072538;
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-header-fondo: #0b3954;
+  --color-titulo-seccion: #0b3954;
+  --color-accent-control: #0b3954;
+
+  --color-btn-primario-fondo: #0b3954;
+  --color-btn-primario-hover: #072538;
+  --color-btn-primario-texto: #ffffff;
+
+  --color-btn-secundario-fondo: #ffffff;
+  --color-btn-secundario-texto: #0b3954;
+  --color-btn-secundario-borde: #0b3954;
+
   --color-secundario-fondo: #e8f1f8;
   --color-fondo-pagina: #f1f5f9;
   --color-superficie: #ffffff;
+  --color-superficie-alt: #f8fafc;
+  --color-control-fondo: #ffffff;
+  --color-footer-fondo: #ffffff;
+
   --color-texto: #111827;
   --color-texto-secundario: #374151;
   --color-borde-suave: #cbd5e1;
@@ -27,10 +44,110 @@
   --color-exito-borde: #15803d;
   --color-exito-fondo: #f0fdf4;
 
+  --color-btn-tema-fondo: rgba(255, 255, 255, 0.14);
+  --color-btn-tema-hover: rgba(255, 255, 255, 0.24);
+  --color-btn-tema-borde: #e0f2fe;
+  --color-btn-tema-texto: #ffffff;
+  --color-btn-tema-estado-fondo: #ffffff;
+  --color-btn-tema-estado-texto: #0b3954;
+
   --radio-sm: 0.375rem;
   --radio-md: 0.625rem;
   --radio-lg: 0.875rem;
   --sombra-suave: 0 1px 3px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-header-fondo: #091526;
+  --color-titulo-seccion: #7dd3fc;
+  --color-accent-control: #38bdf8;
+
+  --color-btn-primario-fondo: #38bdf8;
+  --color-btn-primario-hover: #7dd3fc;
+  --color-btn-primario-texto: #082032;
+
+  --color-btn-secundario-fondo: #131c2e;
+  --color-btn-secundario-texto: #7dd3fc;
+  --color-btn-secundario-borde: #7dd3fc;
+
+  --color-secundario-fondo: #172a45;
+  --color-fondo-pagina: #0b1120;
+  --color-superficie: #131c2e;
+  --color-superficie-alt: #1b263b;
+  --color-control-fondo: #0f172a;
+  --color-footer-fondo: #0f172a;
+
+  --color-texto: #f8fafc;
+  --color-texto-secundario: #cbd5e1;
+  --color-borde-suave: #334155;
+  --color-borde-control: #94a3b8;
+  --color-enlace: #7dd3fc;
+  --color-enlace-hover: #bae6fd;
+
+  --color-foco-externo: #fbbf24;
+  --color-foco-interno: #0b1120;
+
+  --color-error-texto: #fca5a5;
+  --color-error-borde: #f87171;
+  --color-error-fondo: #3b1116;
+
+  --color-exito-texto: #86efac;
+  --color-exito-borde: #4ade80;
+  --color-exito-fondo: #0d2d1d;
+
+  --color-btn-tema-fondo: #1e293b;
+  --color-btn-tema-hover: #334155;
+  --color-btn-tema-borde: #7dd3fc;
+  --color-btn-tema-texto: #f8fafc;
+  --color-btn-tema-estado-fondo: #fbbf24;
+  --color-btn-tema-estado-texto: #111827;
+
+  --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+/* Respaldo automático si JavaScript está desactivado y el sistema prefiere modo oscuro */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --color-header-fondo: #091526;
+    --color-titulo-seccion: #7dd3fc;
+    --color-accent-control: #38bdf8;
+    --color-btn-primario-fondo: #38bdf8;
+    --color-btn-primario-hover: #7dd3fc;
+    --color-btn-primario-texto: #082032;
+    --color-btn-secundario-fondo: #131c2e;
+    --color-btn-secundario-texto: #7dd3fc;
+    --color-btn-secundario-borde: #7dd3fc;
+    --color-secundario-fondo: #172a45;
+    --color-fondo-pagina: #0b1120;
+    --color-superficie: #131c2e;
+    --color-superficie-alt: #1b263b;
+    --color-control-fondo: #0f172a;
+    --color-footer-fondo: #0f172a;
+    --color-texto: #f8fafc;
+    --color-texto-secundario: #cbd5e1;
+    --color-borde-suave: #334155;
+    --color-borde-control: #94a3b8;
+    --color-enlace: #7dd3fc;
+    --color-enlace-hover: #bae6fd;
+    --color-foco-interno: #0b1120;
+    --color-error-texto: #fca5a5;
+    --color-error-borde: #f87171;
+    --color-error-fondo: #3b1116;
+    --color-exito-texto: #86efac;
+    --color-exito-borde: #4ade80;
+    --color-exito-fondo: #0d2d1d;
+    --color-btn-tema-fondo: #1e293b;
+    --color-btn-tema-hover: #334155;
+    --color-btn-tema-borde: #7dd3fc;
+    --color-btn-tema-texto: #f8fafc;
+    --color-btn-tema-estado-fondo: #fbbf24;
+    --color-btn-tema-estado-texto: #111827;
+    --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.45);
+  }
 }
 
 *,
@@ -52,6 +169,7 @@ body {
   color: var(--color-texto);
   background-color: var(--color-fondo-pagina);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Utilidad visualmente oculta pero accesible para lectores de pantalla */
@@ -78,13 +196,13 @@ body {
   color: #111827;
   font-weight: 700;
   text-decoration: underline;
-  border: 3px solid var(--color-primario);
+  border: 3px solid #0b3954;
   border-radius: var(--radio-sm);
 }
 
 .skip-link:focus {
   top: 1rem;
-  outline: 3px solid var(--color-primario);
+  outline: 3px solid #0b3954;
   outline-offset: 2px;
 }
 
@@ -108,6 +226,18 @@ a:hover {
   box-shadow: 0 0 0 6px var(--color-foco-externo);
 }
 
+:root[data-theme="dark"] :focus-visible {
+  outline: 3px solid var(--color-foco-externo);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--color-foco-interno);
+}
+
+.site-header :focus-visible {
+  outline: 3px solid var(--color-foco-externo);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(9, 21, 38, 0.85);
+}
+
 main:focus {
   outline: none;
 }
@@ -121,21 +251,83 @@ main:focus {
 }
 
 /* ==========================================================================
-   Encabezado institucional
+   Encabezado institucional y botón accesible de tema claro/oscuro
    ========================================================================== */
 .site-header {
-  background-color: var(--color-primario);
+  background-color: var(--color-header-fondo);
   color: #ffffff;
-  padding-block: 2.25rem 2.5rem;
+  padding-block: 1.75rem 2.5rem;
   border-bottom: 5px solid var(--color-foco-externo);
 }
 
+.header-barra-superior {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.85rem;
+}
+
 .institucion {
-  margin: 0 0 0.5rem;
+  margin: 0;
   font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #e0f2fe;
+}
+
+.btn-tema {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-btn-tema-texto);
+  background-color: var(--color-btn-tema-fondo);
+  border: 2px solid var(--color-btn-tema-borde);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-tema:hover {
+  background-color: var(--color-btn-tema-hover);
+}
+
+.icono-tema {
+  flex-shrink: 0;
+}
+
+/* En tema claro se muestra el sol; en tema oscuro se muestra la luna */
+.btn-tema .icono-luna {
+  display: none;
+}
+
+.btn-tema .icono-sol {
+  display: inline-block;
+}
+
+.btn-tema[aria-pressed="true"] .icono-luna {
+  display: inline-block;
+}
+
+.btn-tema[aria-pressed="true"] .icono-sol {
+  display: none;
+}
+
+.btn-tema-estado {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  border-radius: 999px;
+  background-color: var(--color-btn-tema-estado-fondo);
+  color: var(--color-btn-tema-estado-texto);
 }
 
 .site-header h1 {
@@ -187,7 +379,7 @@ main.contenedor {
 .panel-instrucciones {
   background-color: var(--color-superficie);
   border: 1px solid var(--color-borde-suave);
-  border-left: 5px solid var(--color-primario);
+  border-left: 5px solid var(--color-titulo-seccion);
   border-radius: var(--radio-md);
   padding: 1.5rem;
   margin-bottom: 1.75rem;
@@ -197,7 +389,7 @@ main.contenedor {
 .panel-instrucciones h2 {
   margin: 0 0 0.75rem;
   font-size: 1.25rem;
-  color: var(--color-primario);
+  color: var(--color-titulo-seccion);
 }
 
 .lista-instrucciones {
@@ -225,7 +417,7 @@ main.contenedor {
 .guia-teclado summary {
   cursor: pointer;
   font-weight: 700;
-  color: var(--color-primario);
+  color: var(--color-titulo-seccion);
   padding-block: 0.25rem;
 }
 
@@ -245,7 +437,7 @@ kbd {
   font-size: 0.875rem;
   font-weight: 700;
   color: var(--color-texto);
-  background-color: #ffffff;
+  background-color: var(--color-control-fondo);
   border: 1px solid var(--color-borde-control);
   border-bottom-width: 2px;
   border-radius: 0.25rem;
@@ -327,7 +519,7 @@ kbd {
   margin-bottom: 1.25rem;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-primario);
+  color: var(--color-titulo-seccion);
   border-bottom: 2px solid var(--color-secundario-fondo);
 }
 
@@ -382,7 +574,7 @@ kbd {
   max-width: 65ch;
 }
 
-/* Controles de entrada nativos (borde alto contraste >= 7:1 según WCAG 1.4.11) */
+/* Controles de entrada nativos (borde alto contraste según WCAG 1.4.11) */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -396,7 +588,7 @@ textarea {
   font-size: 1rem;
   line-height: 1.5;
   color: var(--color-texto);
-  background-color: #ffffff;
+  background-color: var(--color-control-fondo);
   border: 2px solid var(--color-borde-control);
   border-radius: var(--radio-sm);
   transition: border-color 0.15s ease, background-color 0.15s ease;
@@ -440,7 +632,7 @@ textarea[aria-invalid="true"] {
   min-height: 2.875rem;
   border: 1.5px solid var(--color-borde-suave);
   border-radius: var(--radio-sm);
-  background-color: #f8fafc;
+  background-color: var(--color-superficie-alt);
   transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
@@ -450,7 +642,7 @@ textarea[aria-invalid="true"] {
 }
 
 .opcion:has(input:checked) {
-  border-color: var(--color-primario);
+  border-color: var(--color-accent-control);
   background-color: var(--color-secundario-fondo);
 }
 
@@ -460,7 +652,7 @@ textarea[aria-invalid="true"] {
   width: 1.35rem;
   height: 1.35rem;
   margin-top: 0.15rem;
-  accent-color: var(--color-primario);
+  accent-color: var(--color-accent-control);
   cursor: pointer;
 }
 
@@ -472,7 +664,7 @@ textarea[aria-invalid="true"] {
 }
 
 .opcion-consentimiento {
-  background-color: #ffffff;
+  background-color: var(--color-control-fondo);
   border: 2px solid var(--color-borde-control);
   padding: 0.9rem 1rem;
 }
@@ -534,20 +726,20 @@ textarea[aria-invalid="true"] {
 }
 
 .btn-primario {
-  background-color: var(--color-primario);
-  color: #ffffff;
-  border: 2px solid var(--color-primario);
+  background-color: var(--color-btn-primario-fondo);
+  color: var(--color-btn-primario-texto);
+  border: 2px solid var(--color-btn-primario-fondo);
 }
 
 .btn-primario:hover {
-  background-color: var(--color-primario-hover);
-  border-color: var(--color-primario-hover);
+  background-color: var(--color-btn-primario-hover);
+  border-color: var(--color-btn-primario-hover);
 }
 
 .btn-secundario {
-  background-color: #ffffff;
-  color: var(--color-primario);
-  border: 2px solid var(--color-primario);
+  background-color: var(--color-btn-secundario-fondo);
+  color: var(--color-btn-secundario-texto);
+  border: 2px solid var(--color-btn-secundario-borde);
 }
 
 .btn-secundario:hover {
@@ -607,15 +799,15 @@ textarea[aria-invalid="true"] {
   display: inline-block;
   padding: 0.15rem 0.55rem;
   background-color: var(--color-secundario-fondo);
-  border: 1px solid var(--color-primario);
+  border: 1px solid var(--color-titulo-seccion);
   border-radius: var(--radio-sm);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  color: var(--color-primario);
+  color: var(--color-titulo-seccion);
 }
 
 .proximos-pasos {
   padding: 1rem 1.25rem;
-  background-color: #f8fafc;
+  background-color: var(--color-superficie-alt);
   border: 1px solid var(--color-borde-suave);
   border-radius: var(--radio-md);
   margin-bottom: 1.5rem;
@@ -625,7 +817,7 @@ textarea[aria-invalid="true"] {
 .panel-confirmacion > h3 {
   margin: 0 0 0.75rem;
   font-size: 1.125rem;
-  color: var(--color-primario);
+  color: var(--color-titulo-seccion);
 }
 
 .proximos-pasos ul {
@@ -657,7 +849,7 @@ textarea[aria-invalid="true"] {
 }
 
 .resumen-fila:nth-child(odd) {
-  background-color: #f8fafc;
+  background-color: var(--color-superficie-alt);
 }
 
 .resumen-fila dt {
@@ -675,7 +867,7 @@ textarea[aria-invalid="true"] {
    Pie de página
    ========================================================================== */
 .site-footer {
-  background-color: #ffffff;
+  background-color: var(--color-footer-fondo);
   border-top: 2px solid var(--color-borde-suave);
   padding-block: 1.75rem 2.25rem;
   font-size: 0.9375rem;
@@ -685,7 +877,7 @@ textarea[aria-invalid="true"] {
 .footer-titulo {
   margin: 0 0 0.5rem;
   font-size: 1.0625rem;
-  color: var(--color-primario);
+  color: var(--color-titulo-seccion);
 }
 
 .site-footer p {
@@ -736,9 +928,15 @@ textarea[aria-invalid="true"] {
 /* Soporte para modo de alto contraste de Windows (forced-colors) */
 @media (forced-colors: active) {
   .skip-link:focus,
-  :focus-visible {
+  :focus-visible,
+  :root[data-theme="dark"] :focus-visible,
+  .site-header :focus-visible {
     outline: 3px solid Highlight;
     box-shadow: none;
+  }
+
+  .btn-tema {
+    border: 2px solid CanvasText;
   }
 
   .campo.campo-invalido {
@@ -753,8 +951,13 @@ textarea[aria-invalid="true"] {
   }
 }
 
-/* Estilos limpios para imprimir o guardar comprobante en PDF */
+/* Estilos limpios para imprimir o guardar comprobante en PDF (siempre claro) */
 @media print {
+  :root,
+  :root[data-theme="dark"] {
+    color-scheme: light;
+  }
+
   .skip-link,
   .no-imprimir,
   .site-footer {
@@ -777,12 +980,24 @@ textarea[aria-invalid="true"] {
   .site-header h1,
   .subtitulo,
   .meta-item dt,
-  .meta-item dd {
+  .meta-item dd,
+  .panel-confirmacion,
+  .panel-confirmacion h2,
+  .panel-confirmacion h3,
+  .resumen-fila dt,
+  .resumen-fila dd,
+  .folio {
     color: #000000;
+    background-color: #ffffff;
   }
 
-  .panel-confirmacion {
+  .panel-confirmacion,
+  .confirmacion-encabezado,
+  .proximos-pasos,
+  .resumen-datos,
+  .resumen-fila:nth-child(odd) {
+    background-color: #ffffff;
     box-shadow: none;
-    border: 1px solid #000000;
+    border-color: #000000;
   }
 }

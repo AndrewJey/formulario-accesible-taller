@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
   <meta name="description" content="Formulario de inscripción accesible para el Taller Universitario de Accesibilidad e Inclusión Digital. Compatible con lectores de pantalla y navegación completa por teclado.">
   <title>Formulario de inscripción – Taller Universitario de Accesibilidad e Inclusión Digital</title>
+  <script>
+    (function () {
+      try {
+        var guardado = localStorage.getItem('tema-preferido');
+        var prefiereOscuro =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var tema = guardado === 'dark' || guardado === 'light'
+          ? guardado
+          : (prefiereOscuro ? 'dark' : 'light');
+        document.documentElement.dataset.theme = tema;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
@@ -13,7 +29,24 @@
 
   <header class="site-header">
     <div class="contenedor">
-      <p class="institucion">Dirección de Innovación Educativa y Bienestar Universitario</p>
+      <div class="header-barra-superior">
+        <p class="institucion">Dirección de Innovación Educativa y Bienestar Universitario</p>
+        <button
+          type="button"
+          id="btn-tema"
+          class="btn-tema no-imprimir"
+          aria-pressed="false"
+        >
+          <svg class="icono-tema icono-luna" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor" d="M12.3 2.1a1 1 0 0 0-.9 1.3A8 8 0 0 1 20.6 12.6a1 1 0 0 0 1.3.9 10 10 0 1 1-9.6-11.4z"/>
+          </svg>
+          <svg class="icono-tema icono-sol" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1zM4.22 5.64a1 1 0 0 1 1.42 0l1.41 1.41a1 1 0 1 1-1.41 1.42L4.22 7.05a1 1 0 0 1 0-1.41zm12.73 12.73a1 1 0 0 1 1.41 0l1.42 1.41a1 1 0 1 1-1.42 1.42l-1.41-1.42a1 1 0 0 1 0-1.41zM2 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1zm16 0a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1zM5.64 19.78a1 1 0 0 1 0-1.41l1.41-1.42a1 1 0 1 1 1.42 1.42l-1.42 1.41a1 1 0 0 1-1.41 0zm12.72-12.73a1 1 0 0 1 0-1.41l1.42-1.42a1 1 0 0 1 1.41 1.42l-1.41 1.41a1 1 0 0 1-1.42 0z"/>
+          </svg>
+          <span class="btn-tema-texto">Modo oscuro</span>
+          <span class="btn-tema-estado" id="estado-tema-visual" aria-hidden="true">Desactivado</span>
+        </button>
+      </div>
       <h1 id="titulo-pagina">Inscripción al Taller Universitario de Accesibilidad e Inclusión Digital</h1>
       <p class="subtitulo">
         Aprenda a diseñar documentos, formularios y entornos digitales comprensibles y utilizables por todas las personas.

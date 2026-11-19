@@ -27,6 +27,92 @@
   const btnLimpiar = document.getElementById('btn-limpiar');
   const btnImprimir = document.getElementById('btn-imprimir');
   const btnNuevaInscripcion = document.getElementById('btn-nueva-inscripcion');
+  const btnTema = document.getElementById('btn-tema');
+  const estadoTemaVisual = document.getElementById('estado-tema-visual');
+
+  const CLAVE_TEMA = 'tema-preferido';
+
+  /**
+   * Lee el tema guardado por el usuario si el almacenamiento local está disponible.
+   * @returns {'dark' | 'light' | null}
+   */
+  function obtenerTemaGuardado() {
+    try {
+      const valor = window.localStorage.getItem(CLAVE_TEMA);
+      return valor === 'dark' || valor === 'light' ? valor : null;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Guarda la preferencia de tema en almacenamiento local de forma segura.
+   * @param {'dark' | 'light'} tema
+   */
+  function guardarTema(tema) {
+    try {
+      window.localStorage.setItem(CLAVE_TEMA, tema);
+    } catch {
+      // Ignorar si el navegador bloquea localStorage en modo restringido.
+    }
+  }
+
+  /**
+   * Aplica el tema elegido y sincroniza el estado accesible del botón.
+   * @param {'dark' | 'light'} tema
+   * @param {boolean} anunciar
+   */
+  function aplicarTema(tema, anunciar) {
+    const esOscuro = tema === 'dark';
+    document.documentElement.dataset.theme = tema;
+
+    if (btnTema) {
+      btnTema.setAttribute('aria-pressed', String(esOscuro));
+    }
+    if (estadoTemaVisual) {
+      estadoTemaVisual.textContent = esOscuro ? 'Activado' : 'Desactivado';
+    }
+    if (anunciar) {
+      anunciarEstado(esOscuro ? 'Modo oscuro activado.' : 'Modo claro activado.');
+    }
+  }
+
+  /**
+   * Inicializa el selector de tema respetando la preferencia guardada o del sistema.
+   */
+  function inicializarTema() {
+    const consultaOscuro =
+      typeof window.matchMedia === 'function'
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : null;
+
+    const temaInicial =
+      document.documentElement.dataset.theme === 'dark' ||
+      document.documentElement.dataset.theme === 'light'
+        ? document.documentElement.dataset.theme
+        : obtenerTemaGuardado() || (consultaOscuro && consultaOscuro.matches ? 'dark' : 'light');
+
+    aplicarTema(temaInicial, false);
+
+    if (btnTema) {
+      btnTema.addEventListener('click', () => {
+        const temaActual = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+        const nuevoTema = temaActual === 'dark' ? 'light' : 'dark';
+        guardarTema(nuevoTema);
+        aplicarTema(nuevoTema, true);
+      });
+    }
+
+    if (consultaOscuro && typeof consultaOscuro.addEventListener === 'function') {
+      consultaOscuro.addEventListener('change', (evento) => {
+        if (!obtenerTemaGuardado()) {
+          aplicarTema(evento.matches ? 'dark' : 'light', false);
+        }
+      });
+    }
+  }
+
+  inicializarTema();
 
   if (!formulario) {
     return;

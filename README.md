@@ -21,6 +21,7 @@ Formulario de inscripción accesible para el **Taller Universitario de Accesibil
 | **Mensajes de error comprensibles** | Resumen de errores en la parte superior (`role="alert"`) que recibe foco automático y ofrece enlaces directos a cada campo; mensajes inline específicos que explican cómo corregir el error (`aria-invalid="true"` + `aria-describedby`). |
 | **Confirmación de envío** | Panel dedicado de confirmación con número de comprobante, próximos pasos, resumen semántico (`<dl>`) de los datos enviados, opción de imprimir comprobante, gestión de foco y anuncio mediante región viva (`aria-live="polite"`). |
 | **Navegación mediante teclado** | Enlace *«Saltar al contenido principal»*, orden lógico de tabulación, controles HTML nativos (navegables con `Tab`, `Shift + Tab`, flechas, `Espacio` y `Enter`), indicador de foco de alto contraste (`:focus-visible`) y cero trampas de teclado. |
+| **Tema claro / oscuro accesible** | Botón nativo de alternancia con `aria-pressed`, etiqueta visible estable (*Modo oscuro*) e indicador textual de estado (`Activado`/`Desactivado`), soporte para `prefers-color-scheme`, persistencia en `localStorage` sin parpadeo inicial (FOUC), `color-scheme` nativo para controles del navegador, anuncios por región viva (`aria-live="polite"`) y contraste WCAG AAA en ambos temas. |
 
 ---
 
